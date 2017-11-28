@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    tools:context="ventres.intellinects.com.locationtracker.LoginActivity">
+
+   <ImageView
+       android:layout_width="match_parent"
+       android:layout_height="100dp"
+       android:src="@drawable/intellinects"
+       />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="LOGIN ID"
+        android:layout_marginLeft="10dp"
+         />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:drawableLeft="@drawable/ic_userid"
+        android:layout_marginLeft="5dp"
+        android:hint="Enter your USER ID"
+        android:id="@+id/userId"
+        android:inputType="number"
+
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:text="PASSWORD"
+         />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:drawableLeft="@drawable/ic_password"
+        android:hint="Enter your Password"
+        android:inputType="numberPassword"
+        android:id="@+id/pass"
+        />
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Remember Me"
+        android:id="@+id/checkboxs"
+        android:layout_marginLeft="2dp"/>
+
+ <Button
+     android:id="@+id/login"
+     android:layout_width="match_parent"
+     android:layout_height="40dp"
+     android:layout_marginLeft="5dp"
+     android:layout_marginRight="5dp"
+     android:layout_marginTop="30dp"
+     android:background="@color/red"
+     android:text="LOGIN"
+     android:textColor="@color/white" />
+
+
+</LinearLayout>
