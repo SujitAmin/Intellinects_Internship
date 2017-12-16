@@ -4,6 +4,7 @@ import ventres.intellinects.com.locationtracker.R;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -25,30 +26,34 @@ import com.android.volley.toolbox.Volley;
 import android.app.ProgressDialog;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity implements TextWatcher,CompoundButton.OnCheckedChangeListener{
 
     public static final String LOGIN_URL="http://essl.intellinects.org/login.php";
     public static final String LOGIN_SUCCESS="success";
-    private EditText  etUserid,etPass;
+    private EditText  etUserid,etPass;   //here
     private CheckBox rem_userpass;
     private Button login;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     public static final String PREF_NAME ="prefs";
-    public static final String KEY_USERID ="userid";
+    public static final String KEY_USERID ="userid"; //here
     public static final String KEY_REMEMBER ="remember";
     public static final String KEY_PASS= "password";
-    /*private*/public  String userid;
-    /*private*/public String password;
+    public  String userid; //here
+    public String password;
+    ConnectionDetector cd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         getSupportActionBar().hide();
+        cd = new ConnectionDetector(this);
         sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        etUserid =  (EditText) findViewById(R.id.userId);
+        etUserid =  (EditText) findViewById(R.id.userId); //here
         etPass =(EditText) findViewById(R.id.pass);
         rem_userpass = (CheckBox) findViewById(R.id.checkboxs);
         login = (Button) findViewById(R.id.login);
@@ -57,32 +62,58 @@ public class LoginActivity extends AppCompatActivity implements TextWatcher,Comp
         }else{
             rem_userpass.setChecked(false);
         }
-        etUserid.setText(sharedPreferences.getString(KEY_USERID,""));
+        etUserid.setText(sharedPreferences.getString(KEY_USERID,""));  //here
         etPass.setText(sharedPreferences.getString(KEY_PASS,""));
 
-        etUserid.addTextChangedListener(this);
+        etUserid.addTextChangedListener(this); //here
         etPass.addTextChangedListener(this);
         rem_userpass.setOnCheckedChangeListener(this);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                  login();
+                if(cd.isConnected()) {
+                    String validemail = "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
+
+                            "\\@" +
+
+                            "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+
+                            "(" +
+
+                            "\\." +
+
+                            "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
+
+                            ")+";
+
+                    String userid = etUserid.getText().toString();
+                    Matcher matcher = Pattern.compile(validemail).matcher(userid);
+
+                    if (matcher.matches()) {
+                        login();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Enter Valid Email-Id", Toast.LENGTH_LONG).show();
+                    }
+                }else{
+                    Snackbar.make(view,"No internet connection",Snackbar.LENGTH_LONG)
+                            .setAction("Action",null).show();
+                }
             }
         });
     }
 
     private void login() {
 
-         userid = etUserid.getText().toString().trim();
+         userid = etUserid.getText().toString().trim(); //here
          password = etPass.getText().toString().trim();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, LOGIN_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         if(response.trim().equals("success")){
-                            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                            intent.putExtra("useridsss",userid);
+                            Intent intent = new Intent(LoginActivity.this,Main2Activity.class);
+                            intent.putExtra("useridsss",userid); //here
                             startActivity(intent);
                         }else{
                             Toast.makeText(LoginActivity.this,response,Toast.LENGTH_LONG).show();
@@ -98,7 +129,7 @@ public class LoginActivity extends AppCompatActivity implements TextWatcher,Comp
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> map = new HashMap<String,String>();
-                map.put(KEY_USERID,userid);
+                map.put(KEY_USERID,userid); //here
                 map.put(KEY_PASS,password);
                 return map;
             }
@@ -138,14 +169,14 @@ public class LoginActivity extends AppCompatActivity implements TextWatcher,Comp
     }
     private void managePrefs(){
         if(rem_userpass.isChecked()){
-            editor.putString(KEY_USERID,etUserid.getText().toString().trim());
+            editor.putString(KEY_USERID,etUserid.getText().toString().trim()); //here
             editor.putString(KEY_PASS,etPass.getText().toString().trim());
             editor.putBoolean(KEY_REMEMBER,true);
             editor.apply();
         }else{
             editor.putBoolean(KEY_REMEMBER,false);
             editor.remove(KEY_PASS);
-            editor.remove(KEY_USERID);
+            editor.remove(KEY_USERID);  //here
             editor.apply();
         }
     }
