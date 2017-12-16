@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:padding="5sp"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CURRENT LOCATION"
+        android:textStyle="bold"
+        android:layout_marginTop="5dp"
+        android:textSize="15sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:gravity="center"
+        android:layout_gravity="center"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Please enter your Location Name !\n Your Location is outside Office"
+        android:textStyle="normal"
+        android:textSize="16sp"
+        android:textColor="@color/colorAccent"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="60sp"
+        android:textSize="15sp"
+        android:id="@+id/uaddress"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="OK"
+        android:id="@+id/ok"
+        android:background="@color/colorPrimaryDark"
+        android:textColor="@color/white"/>
+</LinearLayout>
