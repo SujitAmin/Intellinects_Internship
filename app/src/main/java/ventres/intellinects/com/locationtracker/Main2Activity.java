@@ -3,10 +3,12 @@ package ventres.intellinects.com.locationtracker;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.FragmentManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.DrawableWrapper;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -14,10 +16,14 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -31,7 +37,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class Main2Activity extends AppCompatActivity  implements LocationListener{
+public class Main2Activity extends AppCompatActivity  implements LocationListener,NavigationView.OnNavigationItemSelectedListener{
 
     private static final int REQUEST_PERMISSION_FINE_LOCATION_RESULT = 0;
     public Button preLocation;
@@ -52,11 +58,20 @@ public class Main2Activity extends AppCompatActivity  implements LocationListene
     Button location2;
     Calendar calendar;
     private boolean FOUND= false;
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mToggle;
+    private ProgressDialog progressDialog2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        getSupportActionBar().hide();
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+        mToggle =new ActionBarDrawerToggle(Main2Activity.this,mDrawerLayout,R.string.open,R.string.close);
+        mDrawerLayout.addDrawerListener(mToggle);
+        mToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        NavigationView navigationView= (NavigationView) findViewById(R.id.navigation_view);
+        navigationView.setNavigationItemSelectedListener(this);
         location2 = (Button) findViewById(R.id.Location2);
         final Animation animation = new AlphaAnimation(1, 0);
         animation.setInterpolator(new LinearInterpolator());
@@ -79,6 +94,10 @@ public class Main2Activity extends AppCompatActivity  implements LocationListene
                 if(Build.VERSION.SDK_INT >=Build.VERSION_CODES.M){
                     if(ContextCompat.checkSelfPermission(getApplicationContext(),Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
                         getLocation();
+                        progressDialog2 = new ProgressDialog(Main2Activity.this);
+                        progressDialog2.setTitle("Please Wait!!!");
+                        progressDialog2.setMessage("While Location is been fetched");
+                        progressDialog2.show();
 
                     }else{
                         if(shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
@@ -89,11 +108,24 @@ public class Main2Activity extends AppCompatActivity  implements LocationListene
                     }
                 }else{
                     getLocation();
+                    progressDialog2 = new ProgressDialog(Main2Activity.this);
+                    progressDialog2.setTitle("Please Wait!!!");
+                    progressDialog2.setMessage("While Location is been fetched.......");
+                    progressDialog2.show();
                 }
             }
         });
 
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(mToggle.onOptionsItemSelected(item)){
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void getLocation(){
@@ -124,9 +156,10 @@ public class Main2Activity extends AppCompatActivity  implements LocationListene
                 calendar = Calendar.getInstance();
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
                 dates = simpleDateFormat.format(calendar.getTime());
-                Toast.makeText(getApplicationContext(),"LOCATION FOUND",Toast.LENGTH_LONG).show();;
+             //   Toast.makeText(getApplicationContext(),"LOCATION FOUND",Toast.LENGTH_SHORT).show();;
                 FOUND=true;
                 emptynessDialog();
+                progressDialog2.dismiss();
             }catch(Exception e){
                 Toast.makeText(getApplicationContext(),"PLEASE RESTART YOUR PHONE",Toast.LENGTH_LONG).show();
             }
@@ -211,5 +244,20 @@ public class Main2Activity extends AppCompatActivity  implements LocationListene
     }
 
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id=item.getItemId();
+        switch(id){
+            case R.id.trouble:
+                    Intent intentn = new Intent(Main2Activity.this,TroubleShoot.class);
+                    startActivity(intentn);
+                   break;
+            case R.id.about:
+                    Intent intenta = new Intent(Main2Activity.this,AboutUs.class);
+                    startActivity(intenta);
+                    break;
+        }
+        return false;
+    }
 
 }

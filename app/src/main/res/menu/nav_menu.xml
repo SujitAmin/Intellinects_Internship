@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/trouble"
+        android:icon="@drawable/help"
+        android:title="Troubleshooting Tips">
+    </item>
+    <item
+        android:id="@+id/about"
+        android:icon="@drawable/intellinects"
+        android:title="About Us">
+    </item>
+
+</menu>

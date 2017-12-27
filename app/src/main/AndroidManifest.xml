@@ -17,17 +17,18 @@
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity" />
-        <activity android:name=".MainActivity" >
-        </activity>
+        <activity android:name=".MainActivity" />
         <activity android:name=".NewSecureLoginActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".send" />
-        <activity android:name=".Main2Activity">
-        </activity>
+        <activity android:name=".Main2Activity" />
+        <activity android:name=".TroubleShoot" />
+        <activity android:name=".AboutUs"></activity>
     </application>
 
 </manifest>

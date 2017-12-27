@@ -45,6 +45,7 @@ public class LoginActivity extends AppCompatActivity implements TextWatcher,Comp
     public  String userid; //here
     public String password;
     ConnectionDetector cd;
+    ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,6 +112,7 @@ public class LoginActivity extends AppCompatActivity implements TextWatcher,Comp
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        progressDialog.dismiss();
                         if(response.trim().equals("success")){
                             Intent intent = new Intent(LoginActivity.this,Main2Activity.class);
                             intent.putExtra("useridsss",userid); //here
@@ -123,6 +125,7 @@ public class LoginActivity extends AppCompatActivity implements TextWatcher,Comp
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        progressDialog.dismiss();
                         Toast.makeText(LoginActivity.this,error.toString(),Toast.LENGTH_LONG ).show();
                     }
                 }){
@@ -137,6 +140,10 @@ public class LoginActivity extends AppCompatActivity implements TextWatcher,Comp
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Checking Credentials....");
+        progressDialog.setTitle("Please Wait!!!");
+        progressDialog.show();
     }
 
 

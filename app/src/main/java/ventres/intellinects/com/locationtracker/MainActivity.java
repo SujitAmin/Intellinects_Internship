@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     String whichButton;
     Calendar calendar;
     RadioButton rb;
-    public ProgressDialog progressDialog;
+    private ProgressDialog progressDialog;
     RadioGroup radioGroup;
     private static final String SEND_URL ="http://essl.intellinects.org/location.php";
     public static final String KEY_USERID="userid";
@@ -87,13 +87,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
         typedaddress="None";
-        //userid = getIntent().getStringExtra("useridsss");
         locationText =(TextView) findViewById(R.id.locationText);
         sendLocation =(Button) findViewById(R.id.send_location);
         getuserdata();
-     //   locationText.setText(""+getIntent().getStringExtra("address"));
 
-     //  getLocationBtn.setOnClickListener(new View.OnClickListener() {
            // @Override
            // public void onClick(View view) {
                 if(Build.VERSION.SDK_INT >=Build.VERSION_CODES.M){
@@ -113,8 +110,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
                 Intent intent = getIntent();
                 whichButton =intent.getStringExtra("Button") ;
-          // }
-     //  });
                     displaygetintent();
                     displayLocationText();
                     sendLocations();
@@ -279,12 +274,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        progressDialog.dismiss();
                         Toast.makeText(getApplicationContext(),response,Toast.LENGTH_SHORT).show();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        progressDialog.dismiss();
                         Toast.makeText(MainActivity.this, "NOT IN OFFICE LOCATION "+"\n Please ENTER OFFICE"/*error.toString()*/, Toast.LENGTH_LONG).show();
                     }
                 }){
@@ -305,6 +302,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("While data is sent....... ");
+        progressDialog.setTitle("Please Wait!!!");
+        progressDialog.show();
     }
 
     public void displaygetintent(){

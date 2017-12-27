@@ -1,4 +1,8 @@
 <resources>
-    <string name="app_name">LocationTracker</string>
+    <string name="app_name">Intellis Attendance</string>
     <string name="get_current_address">GET CURRENT ADDRESS</string>
+    <string name="open">open</string>
+    <string name="close">close</string>
+    <string name="are_you_facing_problem_of_not_getting_location_after_clicking">Are you facing problem of not getting Location after Clicking?</string>
+    <string name="aboutus">Since 2013, we have been committed to using technology to improve the overall effectiveness of school education. Over 80 schools have benefitted from our combination of innovative solutions, mobile centric technology and continuous engagement. Our mobile centric solutions with multiple value added features provide parents and schools a very effective communication and engagement platform.</string>
 </resources>
