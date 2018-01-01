@@ -39,7 +39,7 @@ public class predinedLocation extends DialogFragment implements LocationListener
     ListView lv;
     SearchView sv;
     ArrayAdapter<String> adapter;
-    String[] location = {"Mumbai Cooperate office"/*,"Oops office"*/,"Nashik Office"};
+    String[] location = {"Mumbai Corporate office","Nashik Office","Gandhi Nagar Office"};
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -121,6 +121,30 @@ public class predinedLocation extends DialogFragment implements LocationListener
                         intent.putExtra("longitude2",longitude);
                         intent.putExtra("Button",buttons);
                         startActivity(intent);
+
+                    case 2:
+                        latitude=19.058784;
+                        longitude=72.849320;
+                        address="Shop No. 2-1/1-C, Next to Samaj Mandir Hall, Shastri Nagar, Bandra East, Government Colony, Bandra East, Mumbai, Maharashtra 400051";
+                        city ="Mumbai";
+                        state ="Maharashtra";
+                        country="India";
+                        postalCode="400051";
+                        calendar = Calendar.getInstance();
+                        dates = simpleDateFormat.format(calendar.getTime());
+                        intent = new Intent(getActivity(), MainActivity.class);
+                        intent.putExtra("address2",address);
+                        intent.putExtra("city2",city);
+                        intent.putExtra("state2",state);
+                        intent.putExtra("country2",country);
+                        intent.putExtra("postalcode2",postalCode);
+                        intent.putExtra("dates2",dates);
+                        intent.putExtra("latitude2",latitude);
+                        intent.putExtra("longitude2",longitude);
+                        intent.putExtra("Button",buttons);
+                        startActivity(intent);
+
+
 
 
                 }

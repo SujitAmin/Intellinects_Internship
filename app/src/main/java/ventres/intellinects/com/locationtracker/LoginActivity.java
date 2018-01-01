@@ -33,16 +33,16 @@ public class LoginActivity extends AppCompatActivity implements TextWatcher,Comp
 
     public static final String LOGIN_URL="http://essl.intellinects.org/login.php";
     public static final String LOGIN_SUCCESS="success";
-    private EditText  etUserid,etPass;   //here
+    private EditText  etUserid,etPass;
     private CheckBox rem_userpass;
     private Button login;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     public static final String PREF_NAME ="prefs";
-    public static final String KEY_USERID ="userid"; //here
+    public static final String KEY_USERID ="userid";
     public static final String KEY_REMEMBER ="remember";
     public static final String KEY_PASS= "password";
-    public  String userid; //here
+    public  String userid;
     public String password;
     ConnectionDetector cd;
     ProgressDialog progressDialog;
@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity implements TextWatcher,Comp
         cd = new ConnectionDetector(this);
         sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        etUserid =  (EditText) findViewById(R.id.userId); //here
+        etUserid =  (EditText) findViewById(R.id.userId);
         etPass =(EditText) findViewById(R.id.pass);
         rem_userpass = (CheckBox) findViewById(R.id.checkboxs);
         login = (Button) findViewById(R.id.login);
@@ -63,7 +63,7 @@ public class LoginActivity extends AppCompatActivity implements TextWatcher,Comp
         }else{
             rem_userpass.setChecked(false);
         }
-        etUserid.setText(sharedPreferences.getString(KEY_USERID,""));  //here
+        etUserid.setText(sharedPreferences.getString(KEY_USERID,""));
         etPass.setText(sharedPreferences.getString(KEY_PASS,""));
 
         etUserid.addTextChangedListener(this); //here

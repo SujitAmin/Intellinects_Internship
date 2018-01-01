@@ -43,7 +43,7 @@ public class Main2Activity extends AppCompatActivity  implements LocationListene
     public Button preLocation;
     public Button getLocationBtns;
     private LocationManager locationManager;
-    public String address; // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+    public String address;
     public String state;
     public String city;
     public String country;
@@ -156,12 +156,11 @@ public class Main2Activity extends AppCompatActivity  implements LocationListene
                 calendar = Calendar.getInstance();
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
                 dates = simpleDateFormat.format(calendar.getTime());
-             //   Toast.makeText(getApplicationContext(),"LOCATION FOUND",Toast.LENGTH_SHORT).show();;
                 FOUND=true;
                 emptynessDialog();
                 progressDialog2.dismiss();
             }catch(Exception e){
-                Toast.makeText(getApplicationContext(),"PLEASE RESTART YOUR PHONE",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"PLEASE try again OR \n restart your phone",Toast.LENGTH_LONG).show();
             }
     }
 

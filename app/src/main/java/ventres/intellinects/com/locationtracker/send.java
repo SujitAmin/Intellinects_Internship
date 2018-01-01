@@ -21,7 +21,7 @@ public class send extends AppCompatActivity {
 
 
     public String userid;
-    public String address; // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+    public String address;
     public String city;
     public String state;
     public String country;
@@ -40,7 +40,7 @@ public class send extends AppCompatActivity {
         sent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                sendData();
+//
             }
         });
 

@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private TextView locationText;
     private Button sendLocation;
     private LocationManager locationManager;
-    public String address; // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+    public String address;
     public String city;
     public String state;
     public String country;
@@ -90,9 +90,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         locationText =(TextView) findViewById(R.id.locationText);
         sendLocation =(Button) findViewById(R.id.send_location);
         getuserdata();
-
-           // @Override
-           // public void onClick(View view) {
                 if(Build.VERSION.SDK_INT >=Build.VERSION_CODES.M){
                     if(ContextCompat.checkSelfPermission(getApplicationContext(),Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
                         getLocation();
@@ -132,25 +129,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     @Override
     public void onLocationChanged(Location location) {
- /*       locationText.setText("Latitude:"+location.getLatitude()+"\n Longitude:"+location.getLongitude());
- */       try{
+      try{
             Geocoder geocoder = new Geocoder(this, Locale.getDefault());
             List<Address> addresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
             myLatitude = location.getLatitude();
             myLongitude = location.getLongitude();
-            /*    address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-            city = addresses.get(0).getLocality();
-            state = addresses.get(0).getAdminArea();
-            country = addresses.get(0).getCountryName();
-            postalCode = addresses.get(0).getPostalCode();
-            calendar = Calendar.getInstance();
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-            dates = simpleDateFormat.format(calendar.getTime());
-            knownName = addresses.get(0).getFeatureName(); // Only if available else return NULL
-
-           locationText.setText(""+address);
-        */  /*  Toast.makeText(getApplicationContext(),"LOCATION FOUND",Toast.LENGTH_LONG).show();
-*/
 
         }catch(Exception e){
             Toast.makeText(getApplicationContext(),"Security Exception",Toast.LENGTH_LONG).show();
@@ -200,7 +183,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 if(R.id.out == i){
                 status ="out";
                 }
-              //  Toast.makeText(getApplicationContext(),""+userid+"\n"+address+"\n"+city+"\n"+state+"\n"+country+"\n"+postalCode+"\n"+dates+"\n"+status,Toast.LENGTH_LONG).show();
                 AlertDialog.Builder alertDialogBuilder=new AlertDialog.Builder(MainActivity.this);
                 alertDialogBuilder.setTitle("You have clicked '"+rb.getText()+"'");
                 alertDialogBuilder.setMessage("Are you sure you are "+rb.getText().toString().toLowerCase()+" ?");
@@ -218,9 +200,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                             } else {
                                 Toast.makeText(getApplicationContext(), "Outside Locations", Toast.LENGTH_LONG).show();
                             }
-                        }/*else{
-                            sendData();
-                        }*/
+                        }
                         if(whichButton.equals("getAddress")){
                             //mumbai office
                             if(distance(19.057348,72.847465,latitude,longitude)<0.05){
